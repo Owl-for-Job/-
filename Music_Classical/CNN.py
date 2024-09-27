@@ -15,7 +15,7 @@ from PIL import Image
 
             
 import pandas as pd
-data_path = "D:\\smartimfor\\智能信息处理\\智能信息处理\\Myclassification\\Data\\genres_original"
+data_path = "Myclassification\\Data\\genres_original"
 genres = os.listdir(data_path)
 
 # 处理音频变成梅尔频谱图，其实还提取了色度和节拍特征，但是没有用上
@@ -62,7 +62,7 @@ for genre in genres:
                 number_match = re.search(r'\.(\d+)$', file_name)
                 file_number = number_match.group(1)
                 # 构建流派对应的子文件夹路径
-                save_dir_genre = os.path.join("D:\smartimfor\智能信息处理\智能信息处理\Myclassification\Data\Train_Spectogram_Images", genre)
+                save_dir_genre = os.path.join("Myclassification\Data\Train_Spectogram_Images", genre)
                 # 确保流派对应的子文件夹已创建
                 if not os.path.exists(save_dir_genre):
                     os.makedirs(save_dir_genre)
@@ -99,8 +99,8 @@ from PIL import Image
 
 def slice_and_split_dataset(verbose=0):
     # 定义原始数据集路径和目标路径
-    original_dataset_dir = "D:/smartimfor/智能信息处理/智能信息处理/Myclassification/Data/Train_Spectogram_Images"
-    base_dir = "D:/smartimfor/智能信息处理/智能信息处理/Myclassification/Data/Slice_Image"
+    original_dataset_dir = "Myclassification/Data/Train_Spectogram_Images"
+    base_dir = "Myclassification/Data/Slice_Image"
     train_dir = os.path.join(base_dir, "train")
     test_dir = os.path.join(base_dir, "test")
 
@@ -172,7 +172,7 @@ train_x = []
 train_y = []
 test_x = []
 test_y = []
-data_path = "D:\\smartimfor\\智能信息处理\\智能信息处理\\Myclassification\\Data\\Slice_Image\\train"
+data_path = "Myclassification\\Data\\Slice_Image\\train"
 files = os.listdir(data_path)
 for f in files:
     genre_path = os.path.join(data_path, f)
@@ -193,7 +193,7 @@ for f in files:
             continue
 
 
-data_path = "D:\\smartimfor\\智能信息处理\\智能信息处理\\Myclassification\\Data\\Slice_Image\\test"
+data_path = "Myclassification\\Data\\Slice_Image\\test"
 files = os.listdir(data_path)
 for f in files:
     genre_path = os.path.join(data_path, f)
@@ -261,7 +261,7 @@ from keras.src.legacy.preprocessing.image import ImageDataGenerator
 train_gen = ImageDataGenerator(rescale=1./255, zoom_range=(0.99, 0.99),horizontal_flip=True)
 val_gen = ImageDataGenerator(rescale=1./255, zoom_range=(0.99, 0.99))
 
-train = train_gen.flow_from_directory("D:\\smartimfor\\智能信息处理\\智能信息处理\\Myclassification\\Data\\Slice_Image\\train",
+train = train_gen.flow_from_directory("Myclassification\\Data\\Slice_Image\\train",
                                 target_size=(150,150),
                                 batch_size= 60, #在一次训练迭代中可以使用的图像数量，可通过这个参数调整训练速度
                                 class_mode='categorical',
@@ -271,7 +271,7 @@ train = train_gen.flow_from_directory("D:\\smartimfor\\智能信息处理\\智�
                                 )
 classes_train = train.class_indices
 
-val = val_gen.flow_from_directory("D:\\smartimfor\\智能信息处理\\智能信息处理\\Myclassification\\Data\\Slice_Image\\test",
+val = val_gen.flow_from_directory("Myclassification\\Data\\Slice_Image\\test",
                                 target_size=(150,150),
                                 batch_size= 10,
                                 class_mode='categorical',
@@ -333,7 +333,7 @@ model.compile(loss="categorical_crossentropy",
 history= model.fit(train_x,train_y, epochs=60, verbose=1, validation_data=(test_x,test_y))
 #score = model.evaluate(test_x, test_y, verbose=1)
 #print (score)
-model.save("D:\smartimfor\智能信息处理\智能信息处理\Myclassification\Data\model/CNN2.h5")
+model.save("Myclassification\Data\model/CNN2.h5")
 
 
 # 可视化部分，可删
